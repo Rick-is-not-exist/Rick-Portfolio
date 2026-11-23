@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RICK // SOFTWARE DEVELOPER &amp; IOT ENGINEER — Y2K PORTFOLIO</title>
+  <style>
+    :root {
+      --bg-outer: #16191d;
+      --bezel-light: #aeb5be;
+      --bezel-mid: #7d8590;
+      --bezel-dark: #383e46;
+      --panel-gray: #8f96a0;
+      --panel-dark: #4f555e;
+      --crt-black: #050a14;
+      --y2k-navy: #071936;
+      --y2k-blue: #0e4da4;
+      --y2k-electric: #1c88ff;
+      --y2k-cyan: #5ce1ff;
+      --y2k-white: #eef7ff;
+      --y2k-silver: #cfd8e3;
+      --border-hi: #dce6f2;
+      --border-lo: #1b2738;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 50% 15%, #272d36 0%, var(--bg-outer) 75%);
+      color: var(--y2k-white);
+      font-family: "Tahoma", "Verdana", "Segoe UI", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 14px;
+      line-height: 1.5;
+    }
+
+    /* Bingkai Monitor CRT Y2K */
+    .crt-monitor {
+      width: 100%;
+      max-width: 1060px;
+      background: linear-gradient(165deg, var(--bezel-light) 0%, var(--bezel-mid) 45%, var(--bezel-dark) 100%);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.75),
+        inset 0 2px 3px rgba(255, 255, 255, 0.65),
+        inset 0 -4px 8px rgba(0, 0, 0, 0.55);
+      border: 2px solid #23282f;
+    }
+
+    .crt-screen {
+      position: relative;
+      background: var(--crt-black);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 3px solid #20262f;
+      box-shadow:
+        inset 0 0 36px rgba(0, 0, 0, 0.9),
+        0 0 0 2px #9ea6b0;
+    }
+
+    /* Garis Scanline Halus Khas Monitor Tabung */
+    .crt-screen::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.035) 0px,
+        rgba(255, 255, 255, 0.035) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+      pointer-events: none;
+      z-index: 30;
+    }
+
+    /* Baris Kontrol Jendela Atas */
+    .window-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 6px 10px;
+      background: linear-gradient(to bottom, #9ba3ae, #6d7580);
+      border-bottom: 1px solid #2b323c;
+      font-size: 11px;
+      letter-spacing: 0.8px;
+      color: #10161f;
+      font-weight: 700;
+    }
+
+    .window-title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .window-controls {
+      display: flex;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .win-btn {
+      width: 18px;
+      height: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom, #dce3ec, #8d95a0);
+      border-top: 1px solid #ffffff;
+      border-left: 1px solid #ffffff;
+      border-right: 1px solid #2b313a;
+      border-bottom: 1px solid #2b313a;
+      color: #111822;
+      font-size: 10px;
+      font-weight: bold;
+      user-select: none;
+    }
+
+    /* Bilah Navigasi Utama */
+    .nav-strip {
+      display: flex;
+      align-items: stretch;
+      background: linear-gradient(to bottom, #7a838f, #4c535d);
+      border-bottom: 2px solid #1b2534;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--y2k-cyan) #253040;
+    }
+
+    .nav-strip::-webkit-scrollbar {
+      height: 5px;
+    }
+
+    .nav-strip::-webkit-scrollbar-thumb {
+      background: var(--y2k-cyan);
+    }
+
+    .nav-btn {
+      flex: 1 0 auto;
+      background: linear-gradient(to bottom, #88919d 0%, #555d68 100%);
+      color: #f4f9ff;
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.45);
+      border-right: 1px solid #232a34;
+      padding: 10px 12px;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .nav-btn:hover {
+      background: linear-gradient(to bottom, #1f78d1, #0c3b7a);
+      color: var(--y2k-cyan);
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(to bottom, #1693ff, #0a3f88);
+      color: #ffffff;
+      box-shadow: inset 0 0 10px rgba(92, 225, 255, 0.55);
+    }
+
+    /* Area Hero Y2K Cybernetic */
+    .hero-stage {
+      position: relative;
+      min-height: 360px;
+      background:
+        radial-gradient(circle at 72% 35%, rgba(28, 136, 255, 0.42), transparent 58%),
+        radial-gradient(circle at 22% 55%, rgba(92, 225, 255, 0.18), transparent 50%),
+        linear-gradient(125deg, #040913 0%, #092147 48%, #040d1d 100%);
+      border-bottom: 2px solid #2b4c7e;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(190px, 270px) 1fr;
+      align-items: end;
+    }
+
+    /* Grid & Aksen Teknis Latar Belakang */
+    .hero-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(92, 225, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(92, 225, 255, 0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+    }
+
+    .hero-portrait-wrap {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      min-height: 290px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 14px 14px 0;
+    }
+
+    .hero-portrait {
+      width: 100%;
+      max-width: 240px;
+      height: 295px;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(100%) contrast(1.28) brightness(0.95) drop-shadow(0 0 16px rgba(28, 136, 255, 0.65));
+      border-bottom: none;
+    }
+
+    .hero-info {
+      position: relative;
+      z-index: 2;
+      padding: 20px 24px 22px 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .hero-top-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      color: var(--y2k-cyan);
+      text-transform: uppercase;
+    }
+
+    .hero-name-box {
+      border-left: 3px solid var(--y2k-cyan);
+      padding-left: 14px;
+      background: linear-gradient(90deg, rgba(14, 77, 164, 0.32), transparent);
+      padding-top: 6px;
+      padding-bottom: 6px;
+    }
+
+    .hero-role {
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--y2k-cyan);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .hero-name {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 800;
+      letter-spacing: 3px;
+      line-height: 1.1;
+      text-transform: uppercase;
+      text-shadow: 0 0 18px rgba(92, 225, 255, 0.55);
+      margin: 2px 0 6px;
+    }
+
+    .hero-tagline {
+      font-size: clamp(13px, 2.1vw, 16px);
+      font-style: italic;
+      color: var(--y2k-white);
+      letter-spacing: 0.6px;
+    }
+
+    .hero-hud-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .hud-card {
+      background: rgba(6, 20, 44, 0.78);
+      border: 1px solid rgba(92, 225, 255, 0.35);
+      padding: 9px 11px;
+      font-size: 11px;
+    }
+
+    .hud-label {
+      color: var(--y2k-cyan);
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .hud-val {
+      font-weight: 700;
+      color: var(--y2k-white);
+      font-size: 12px;
+    }
+
+    /* Konten Utama Dinamis */
+    .main-viewport {
+      padding: 20px;
+      background:
+        linear-gradient(180deg, rgba(7, 25, 54, 0.92) 0%, rgba(4, 12, 26, 0.98) 100%);
+    }
+
+    .tab-panel {
+      display: none;
+      animation: fadeIn 0.22s ease;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0.4; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      border-bottom: 1px solid rgba(92, 225, 255, 0.35);
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+
+    .section-heading h2 {
+      font-size: 15px;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: var(--y2k-cyan);
+    }
+
+    .section-tag {
+      font-size: 11px;
+      color: var(--y2k-silver);
+      letter-spacing: 0.8px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .y2k-box {
+      background: linear-gradient(160deg, rgba(14, 48, 98, 0.45), rgba(6, 17, 36, 0.85));
+      border-top: 1px solid rgba(220, 230, 242, 0.45);
+      border-left: 1px solid rgba(220, 230, 242, 0.35);
+      border-right: 1px solid #12233d;
+      border-bottom: 1px solid #0c1729;
+      padding: 15px;
+    }
+
+    .y2k-box h3 {
+      font-size: 14px;
+      letter-spacing: 1px;
+      color: var(--y2k-cyan);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .meta-badge {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      margin-bottom: 10px;
+      background: rgba(28, 136, 255, 0.25);
+      border: 1px solid rgba(92, 225, 255, 0.5);
+      color: var(--y2k-cyan);
+    }
+
+    .y2k-box p {
+      font-size: 13px;
+      color: var(--y2k-silver);
+      margin-bottom: 10px;
+    }
+
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .y2k-link {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-decoration: none;
+      color: #051124;
+      background: linear-gradient(to bottom, #9eeaff, #38bdf8);
+      padding: 5px 10px;
+      border-top: 1px solid #ffffff;
+      border-left: 1px solid #ffffff;
+      border-right: 1px solid #0b396b;
+      border-bottom: 1px solid #0b396b;
+      letter-spacing: 0.5px;
+    }
+
+    .y2k-link:hover {
+      background: linear-gradient(to bottom, #ffffff, #7dd3fc);
+    }
+
+    .project-img {
+      width: 100%;
+      height: 185px;
+      object-fit: cover;
+      border: 1px solid rgba(92, 225, 255, 0.4);
+      margin-bottom: 10px;
+      display: block;
+      background: #03070f;
+    }
+
+    .stack-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 8px;
+    }
+
+    .stack-chip {
+      font-size: 11px;
+      padding: 4px 9px;
+      background: rgba(5, 18, 40, 0.9);
+      border: 1px solid rgba(92, 225, 255, 0.45);
+      color: var(--y2k-white);
+      font-weight: 600;
+    }
+
+    /* Bilah Sekunder & Footer */
+    .sub-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 8px 12px;
+      background: linear-gradient(to bottom, #6d7580, #434952);
+      border-top: 1px solid #9ea6b0;
+      border-bottom: 1px solid #1b222c;
+      font-size: 11px;
+    }
+
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .quick-btn {
+      background: linear-gradient(to bottom, #8d96a2, #575f6b);
+      color: #ffffff;
+      border-top: 1px solid #d5dde7;
+      border-left: 1px solid #d5dde7;
+      border-right: 1px solid #222831;
+      border-bottom: 1px solid #222831;
+      padding: 4px 9px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .quick-btn:hover {
+      color: var(--y2k-cyan);
+    }
+
+    .footer-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 9px 14px;
+      background: linear-gradient(to bottom, #88909c, #5d646f);
+      color: #101722;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+    }
+
+    .audio-toggle {
+      background: #142238;
+      color: var(--y2k-cyan);
+      border: 1px solid #75808f;
+      padding: 4px 10px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    .audio-toggle.is-on {
+      background: #0d4a8a;
+      color: #ffffff;
+      border-color: var(--y2k-cyan);
+    }
+
+    /* Responsif Mobile */
+    @media (max-width: 780px) {
+      body {
+        padding: 8px;
+      }
+
+      .crt-monitor {
+        padding: 10px;
+        border-radius: 12px;
+      }
+
+      .hero-stage {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-portrait-wrap {
+        min-height: 220px;
+        padding-top: 16px;
+      }
+
+      .hero-portrait {
+        max-width: 190px;
+        height: 220px;
+      }
+
+      .hero-info {
+        padding: 14px 16px 18px;
+      }
+
+      .hero-hud-row,
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .main-viewport {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="crt-monitor">
+    <div class="crt-screen">
+      <!-- Baris Judul Jendela -->
+      <div class="window-topbar">
+        <span class="window-title">RICK.SYS // BANJARMASIN, ID — Y2K ENGINEERING PORTAL</span>
+        <div class="window-controls" aria-hidden="true">
+          <span class="win-btn">_</span>
+          <span class="win-btn">[]</span>
+          <span class="win-btn">X</span>
+        </div>
+      </div>
+
+      <!-- Navigasi Utama -->
+      <nav class="nav-strip" aria-label="Navigasi Utama">
+        <button class="nav-btn active" data-tab="biography">Biography</button>
+        <button class="nav-btn" data-tab="companies">Companies</button>
+        <button class="nav-btn" data-tab="projects">Projects</button>
+        <button class="nav-btn" data-tab="stack">Tech Stack</button>
+        <button class="nav-btn" data-tab="contact">Contact</button>
+      </nav>
+
+      <!-- Hero Section -->
+      <header class="hero-stage">
+        <div class="hero-grid-bg" aria-hidden="true"></div>
+
+        <div class="hero-portrait-wrap">
+          <img
+            src="image_7fd039.png"
+            alt="Potret Rick dalam gaya monokrom Y2K"
+            class="hero-portrait"
+          />
+        </div>
+
+        <div class="hero-info">
+          <div class="hero-top-meta">
+            <span>ORIGIN: BANJARMASIN, INDONESIA</span>
+            <span>BUILD: 2026-11-22</span>
+          </div>
+
+          <div class="hero-name-box">
+            <div class="hero-role">Software Developer &amp; IoT Engineer</div>
+            <h1 class="hero-name">RICK</h1>
+            <p class="hero-tagline">“The World Hasn't Even Started Yet”</p>
+          </div>
+
+          <div class="hero-hud-row">
+            <div class="hud-card">
+              <span class="hud-label">Core Focus</span>
+              <span class="hud-val">IoT &amp; Web Dev</span>
+            </div>
+            <div class="hud-card">
+              <span class="hud-label">Tech Ventures</span>
+              <span class="hud-val">Tempora Nova &amp; Kadolink</span>
+            </div>
+            <div class="hud-card">
+              <span class="hud-label">Status</span>
+              <span class="hud-val">Building From Scratch</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Konten Tab -->
+      <main class="main-viewport">
+        <!-- BIOGRAPHY -->
+        <section id="tab-biography" class="tab-panel active">
+          <div class="section-heading">
+            <h2>01 // Biography</h2>
+            <span class="section-tag">FROM ZERO TO BUILDING</span>
+          </div>
+
+          <div class="grid-2">
+            <div class="y2k-box">
+              <h3>Origin Story</h3>
+              <span class="meta-badge">Software Developer &amp; IoT Engineer</span>
+              <p>
+                Saya adalah Rick, seorang Software Developer dan IoT Engineer asal Banjarmasin, Indonesia.
+                Perjalanan saya di dunia teknologi dimulai dari titik yang sangat dasar—bahkan saya masuk
+                ke dunia ini tanpa tahu cara menyalakan laptop.
+              </p>
+              <p>
+                Melalui proses belajar dan praktik langsung, saya berhasil membangun perusahaan dari nol
+                dan terus mengembangkan solusi berbasis perangkat keras IoT serta aplikasi web.
+              </p>
+            </div>
+
+            <div class="y2k-box">
+              <h3>Mindset &amp; Direction</h3>
+              <span class="meta-badge">The World Hasn't Even Started Yet</span>
+              <p>
+                Saya senang membangun sesuatu yang nyata dan fungsional—mulai dari pengendali perangkat
+                cerdas berbasis mikrokontroler hingga aplikasi web interaktif.
+              </p>
+              <p>
+                Fokus utama saya saat ini berada di persimpangan <strong>IoT Engineering</strong> dan
+                <strong>Web Development</strong>, terus merancang sistem baru dengan semangat bahwa
+                perjalanan ini baru saja dimulai.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- COMPANIES -->
+        <section id="tab-companies" class="tab-panel">
+          <div class="section-heading">
+            <h2>02 // Companies</h2>
+            <span class="section-tag">FOUNDED &amp; ENGINEERED</span>
+          </div>
+
+          <div class="grid-2">
+            <article class="y2k-box">
+              <h3>Tempora Nova</h3>
+              <span class="meta-badge">IoT Product • Founder / Lead Engineer • 2026</span>
+              <p>
+                Produk dan lini solusi Internet of Things (IoT) yang berfokus pada perangkat pintar
+                terkoneksi dan kontrol berbasis web.
+              </p>
+              <div class="link-row">
+                <a
+                  href="https://temporanova.kulakoding.my.id/katalog.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="y2k-link"
+                >Katalog Web</a>
+                <a
+                  href="https://instagram.com/temporanova.id/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="y2k-link"
+                >Instagram</a>
+              </div>
+            </article>
+
+            <article class="y2k-box">
+              <h3>Kadolink</h3>
+              <span class="meta-badge">Romantic Web / Gift Web • Founder / Lead Dev / Editor • 2026</span>
+              <p>
+                Platform dan kreasi web hadiah digital personal untuk pasangan dengan berbagai tema
+                visual yang dirancang khusus.
+              </p>
+              <div class="link-row">
+                <a
+                  href="https://kadolink-landing.netlify.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="y2k-link"
+                >Landing Page</a>
+                <a
+                  href="https://instagram.com/kadolink.id"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="y2k-link"
+                >Instagram</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="tab-projects" class="tab-panel">
+          <div class="section-heading">
+            <h2>03 // Featured Projects</h2>
+            <span class="section-tag">HARDWARE &amp; WEB BUILDS</span>
+          </div>
+
+          <div class="grid-3">
+            <article class="y2k-box">
+              <img
+                src="image_7fd019.jpg"
+                alt="Digital Clock and Running Text IoT Hardware"
+                class="project-img"
+              />
+              <h3>Digital Clock &amp; Running Text (IoT)</h3>
+              <span class="meta-badge">C++ • ESP8266 • MQTT • RTC • Web</span>
+              <p>
+                Pengendali jam digital dan running text berbasis IoT untuk menampilkan waktu serta teks
+                yang dapat diganti dengan mudah melalui website.
+              </p>
+            </article>
+
+            <article class="y2k-box">
+              <img
+                src="image_7fd034.jpg"
+                alt="Kadolink Night Theme Preview"
+                class="project-img"
+              />
+              <h3>Kadolink Night Theme</h3>
+              <span class="meta-badge">Node.js • Couple Gift Web</span>
+              <p>
+                Tema web hadiah digital bernuansa malam yang dibuat sebagai hadiah personal dan
+                berkesan untuk pasangan.
+              </p>
+            </article>
+
+            <article class="y2k-box">
+              <img
+                src="image_7fd036.jpg"
+                alt="Kadolink Sakura Theme Preview"
+                class="project-img"
+              />
+              <h3>Kadolink Sakura Theme</h3>
+              <span class="meta-badge">Node.js • Couple Gift Web</span>
+              <p>
+                Varian tema web hadiah digital untuk pasangan dengan nuansa lembut dan estetik yang
+                dirancang untuk momen spesial.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <!-- TECH STACK -->
+        <section id="tab-stack" class="tab-panel">
+          <div class="section-heading">
+            <h2>04 // Tech Stack</h2>
+            <span class="section-tag">WEB &amp; IOT SYSTEMS</span>
+          </div>
+
+          <div class="grid-2">
+            <div class="y2k-box">
+              <h3>Web Development</h3>
+              <span class="meta-badge">Frontend &amp; Backend</span>
+              <p>Membangun antarmuka responsif, logika aplikasi web, dan integrasi kontrol perangkat.</p>
+              <ul class="stack-list">
+                <li class="stack-chip">HTML / CSS</li>
+                <li class="stack-chip">JavaScript</li>
+                <li class="stack-chip">Node.js</li>
+                <li class="stack-chip">PHP</li>
+              </ul>
+            </div>
+
+            <div class="y2k-box">
+              <h3>IoT &amp; Embedded</h3>
+              <span class="meta-badge">Hardware &amp; Telemetry</span>
+              <p>Merancang firmware mikrokontroler, sinkronisasi waktu, dan komunikasi real-time.</p>
+              <ul class="stack-list">
+                <li class="stack-chip">ESP32 / ESP8266</li>
+                <li class="stack-chip">MQTT</li>
+                <li class="stack-chip">C++</li>
+                <li class="stack-chip">RTC</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="tab-contact" class="tab-panel">
+          <div class="section-heading">
+            <h2>05 // Contact &amp; Links</h2>
+            <span class="section-tag">DIRECT CHANNELS</span>
+          </div>
+
+          <div class="grid-2">
+            <div class="y2k-box">
+              <h3>Direct Email</h3>
+              <span class="meta-badge">Banjarmasin, Indonesia</span>
+              <p>Untuk kerja sama proyek Web Development, IoT, atau pertanyaan seputar produk.</p>
+              <div class="link-row">
+                <a href="mailto:rakitsky9@gmail.com" class="y2k-link">rakitsky9@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="y2k-box">
+              <h3>Official Links</h3>
+              <span class="meta-badge">Tempora Nova &amp; Kadolink</span>
+              <p>Akses katalog produk, halaman utama, dan akun Instagram resmi:</p>
+              <div class="link-row">
+                <a
+                  href="https://temporanova.kulakoding.my.id/katalog.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="y2k-link"
+                >Tempora Nova Katalog</a>
+                <a
+                  href="https://instagram.com/temporanova.id/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="y2k-link"
+                >@temporanova.id</a>
+                <a
+                  href="https://kadolink-landing.netlify.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="y2k-link"
+                >Kadolink Web</a>
+                <a
+                  href="https://instagram.com/kadolink.id"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="y2k-link"
+                >@kadolink.id</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Bilah Pintasan Bawah -->
+      <div class="sub-bar">
+        <span>QUICK JUMP:</span>
+        <div class="quick-links">
+          <button class="quick-btn" data-tab="biography">Bio</button>
+          <button class="quick-btn" data-tab="companies">Companies</button>
+          <button class="quick-btn" data-tab="projects">Projects</button>
+          <button class="quick-btn" data-tab="stack">Stack</button>
+          <button class="quick-btn" data-tab="contact">Contact</button>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer-strip">
+        <span>© 2026 RICK — BANJARMASIN, INDONESIA</span>
+        <button id="audioToggleBtn" class="audio-toggle" type="button">AUDIO: OFF</button>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const navButtons = Array.from(document.querySelectorAll(".nav-btn"));
+      const quickButtons = Array.from(document.querySelectorAll(".quick-btn"));
+      const panels = Array.from(document.querySelectorAll(".tab-panel"));
+      const audioBtn = document.getElementById("audioToggleBtn");
+
+      let audioEnabled = false;
+      let audioCtx = null;
+
+      function playClickSound() {
+        if (!audioEnabled) return;
+        try {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (!audioCtx) audioCtx = new AudioContextClass();
+          if (audioCtx.state === "suspended") audioCtx.resume();
+
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = "square";
+          osc.frequency.setValueAtTime(760, audioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(340, audioCtx.currentTime + 0.045);
+
+          gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.05);
+        } catch (_) {
+          // Abaikan jika browser membatasi audio
+        }
+      }
+
+      function activateTab(tabName) {
+        navButtons.forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.tab === tabName);
+        });
+        panels.forEach((panel) => {
+          panel.classList.toggle("active", panel.id === "tab-" + tabName);
+        });
+        playClickSound();
+      }
+
+      [...navButtons, ...quickButtons].forEach((btn) => {
+        btn.addEventListener("click", () => {
+          activateTab(btn.dataset.tab);
+        });
+      });
+
+      audioBtn.addEventListener("click", () => {
+        audioEnabled = !audioEnabled;
+        audioBtn.textContent = audioEnabled ? "AUDIO: ON" : "AUDIO: OFF";
+        audioBtn.classList.toggle("is-on", audioEnabled);
+        if (audioEnabled) {
+          playClickSound();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
