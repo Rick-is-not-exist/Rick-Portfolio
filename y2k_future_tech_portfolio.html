@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick Portfolio</title>
+    <!-- Google Fonts untuk nuansa Cybernetic Y2K -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           1. RESET & VARIABEL WARNA Y2K
+        ========================================= */
+        :root {
+            --bg-outer: #14171c;
+            --chrome-light: #d7dce2;
+            --chrome-mid: #9aa3ad;
+            --chrome-dark: #4f565e;
+            --chrome-border: #25292e;
+            --hud-blue-deep: #020b1c;
+            --hud-blue-mid: #082d66;
+            --hud-blue-bright: #0c63d4;
+            --hud-cyan: #38e8ff;
+            --hud-cyan-glow: rgba(56, 232, 255, 0.55);
+            --btn-dark-top: #3e444b;
+            --btn-dark-bot: #15181c;
+            --text-silver: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-outer);
+            background-image: 
+                radial-gradient(circle at 50% 45%, #262c36 0%, #0d0f12 100%);
+            color: var(--text-silver);
+            font-family: 'Share Tech Mono', monospace;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            overflow-x: hidden;
+        }
+
+        /* =========================================
+           2. CRT MONITOR / Y2K CHROME FRAME
+        ========================================= */
+        .y2k-chassis {
+            width: 100%;
+            max-width: 1140px;
+            background: linear-gradient(180deg, #b8c0c8 0%, #868f99 100%);
+            border: 3px solid #1b1e23;
+            border-radius: 10px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.85),
+                inset 0 2px 2px rgba(255, 255, 255, 0.7),
+                inset 0 -3px 6px rgba(0, 0, 0, 0.5);
+            padding: 6px;
+            position: relative;
+        }
+
+        /* Bar Kontrol Jendela Klasik (Top Right) */
+        .window-titlebar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #323840 0%, #68727d 50%, #323840 100%);
+            padding: 3px 8px;
+            border: 1px solid #1c2024;
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .system-status-tag {
+            font-family: 'Silkscreen', monospace;
+            font-size: 10px;
+            color: #d8e1eb;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-led {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--hud-cyan);
+            box-shadow: 0 0 6px var(--hud-cyan);
+            animation: pulseLed 1.5s infinite alternate;
+        }
+
+        @keyframes pulseLed {
+            0% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 3px;
+        }
+
+        .win-btn {
+            width: 16px;
+            height: 14px;
+            background: linear-gradient(180deg, #dce2e8 0%, #8b95a1 100%);
+            border-top: 1px solid #ffffff;
+            border-left: 1px solid #ffffff;
+            border-right: 1px solid #222;
+            border-bottom: 1px solid #222;
+            color: #111;
+            font-family: 'Silkscreen', monospace;
+            font-size: 9px;
+            line-height: 11px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .win-btn:active {
+            border-top: 1px solid #222;
+            border-left: 1px solid #222;
+            border-right: 1px solid #fff;
+            border-bottom: 1px solid #fff;
+        }
+
+        /* =========================================
+           3. NAVIGASI UTAMA (TOP CHROME BAR)
+        ========================================= */
+        .nav-bar-chrome {
+            background: linear-gradient(180deg, #cbd2d9 0%, #98a1ab 48%, #7d8690 52%, #a8b1ba 100%);
+            border: 1px solid #23272c;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .nav-bar-chrome::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-btn {
+            background: linear-gradient(180deg, #4b525a 0%, #262a2f 49%, #16191c 51%, #2c3137 100%);
+            border-top: 1px solid #7f8994;
+            border-left: 1px solid #656e78;
+            border-right: 1px solid #0e1012;
+            border-bottom: 1px solid #0e1012;
+            color: #e6edf5;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: 0.9px;
+            padding: 6px 11px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.15s ease;
+            text-shadow: 0 1px 2px #000;
+            flex-shrink: 0;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(180deg, #1b5ea8 0%, #0d3669 50%, #072142 100%);
+            color: var(--hud-cyan);
+            border-top-color: var(--hud-cyan);
+            box-shadow: inset 0 0 8px rgba(56, 232, 255, 0.4);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(180deg, #0f67c7 0%, #073875 50%, #04224a 100%);
+            color: #ffffff;
+            border-top: 1px solid #7ceeff;
+            box-shadow: 0 0 10px rgba(56, 232, 255, 0.45), inset 0 0 6px rgba(56, 232, 255, 0.5);
+        }
+
+        .nav-arrow-btn {
+            padding: 6px 9px;
+            font-family: 'Silkscreen', monospace;
+            color: var(--hud-cyan);
+        }
+
+        /* =========================================
+           4. LAYAR UTAMA (CYBERNETIC BLUE VIEWPORT)
+        ========================================= */
+        .viewport-wrapper {
+            position: relative;
+            background: radial-gradient(ellipse at 65% 40%, #0d4ca3 0%, #051d47 45%, #020a1a 100%);
+            border-left: 2px solid #16191d;
+            border-right: 2px solid #16191d;
+            min-height: 450px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Tekstur Grid & Scanline CRT */
+        .crt-grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(56, 232, 255, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56, 232, 255, 0.06) 1px, transparent 1px);
+            background-size: 28px 28px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .crt-scanlines {
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.22) 0px,
+                rgba(0, 0, 0, 0.22) 1px,
+                transparent 1px,
+                transparent 3px
+            );
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        /* Garis Vektor Teknis Latar Belakang */
+        .hud-vector-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.7;
+        }
+
+        /* Konten Dinamis di Dalam Viewport */
+        .viewport-stage {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+            transition: opacity 0.25s ease, filter 0.25s ease;
+        }
+
+        .viewport-stage.glitch-transition {
+            opacity: 0.25;
+            filter: brightness(1.8) contrast(1.4);
+        }
+
+        /* =========================================
+           5. TAMPILAN DEFAULT (HERO MOCKUP 2ADVANCED)
+        ========================================= */
+        .hero-layout {
+            display: grid;
+            grid-template-columns: 1.05fr 1fr;
+            min-height: 450px;
+            position: relative;
+        }
+
+        /* Kolom Kiri: Siluet Potret Glowing + Kanji + Label */
+        .hero-left {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 24px;
+            overflow: hidden;
+        }
+
+        /* Efek Siluet Karakter Futuristik dengan Aura Putih/Cyan */
+        .portrait-container {
+            position: absolute;
+            left: 16%;
+            bottom: 0;
+            width: 270px;
+            height: 410px;
+            pointer-events: none;
+            z-index: 1;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .portrait-halo {
+            position: absolute;
+            width: 230px;
+            height: 340px;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.65) 0%, rgba(56,232,255,0.28) 45%, transparent 72%);
+            filter: blur(18px);
+            bottom: 25px;
+        }
+
+        .portrait-svg {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.75)) drop-shadow(-8px 0 12px rgba(56, 232, 255, 0.45));
+        }
+
+        .kanji-row {
+            position: relative;
+            z-index: 5;
+            font-size: 13px;
+            letter-spacing: 8px;
+            color: rgba(215, 243, 255, 0.8);
+            text-shadow: 0 0 8px var(--hud-cyan);
+            margin-bottom: 18px;
+            padding-left: 8px;
+        }
+
+        .hero-title-bar {
+            position: relative;
+            z-index: 5;
+            background: linear-gradient(90deg, rgba(4, 24, 58, 0.9) 0%, rgba(12, 74, 158, 0.55) 75%, transparent 100%);
+            border-top: 1px solid rgba(56, 232, 255, 0.65);
+            border-bottom: 1px solid rgba(56, 232, 255, 0.35);
+            padding: 7px 14px;
+            margin-bottom: 42px;
+            margin-left: -24px;
+        }
+
+        .hero-title-bar h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(56, 232, 255, 0.8);
+        }
+
+        .telemetry-coords {
+            position: relative;
+            z-index: 5;
+            font-size: 9.5px;
+            color: rgba(145, 205, 255, 0.65);
+            line-height: 1.4;
+            letter-spacing: 1px;
+        }
+
+        /* Kolom Kanan: Motto, 3 Tombol Glossy, Globe Wireframe, Logo FUTURE TECH */
+        .hero-right {
+            position: relative;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 18px 26px 22px 16px;
+            text-align: right;
+        }
+
+        .motto-header {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 9.5px;
+            letter-spacing: 2.2px;
+            color: rgba(185, 228, 255, 0.85);
+            border-bottom: 1px solid rgba(56, 232, 255, 0.35);
+            padding-bottom: 5px;
+            width: 100%;
+            text-align: right;
+        }
+
+        /* 3 Tombol Ikon Glossy Bevelled Y2K */
+        .glossy-module-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+            align-items: center;
+        }
+
+        .y2k-glossy-btn {
+            width: 54px;
+            height: 46px;
+            border-radius: 6px;
+            background: linear-gradient(180deg, #89c4ff 0%, #2474d6 45%, #0c3b7a 52%, #1c62bd 100%);
+            border: 2px solid #b5dcff;
+            box-shadow: 
+                0 4px 12px rgba(0, 0, 0, 0.6),
+                inset 0 2px 3px rgba(255, 255, 255, 0.85),
+                0 0 12px rgba(56, 232, 255, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.15s ease, filter 0.15s ease;
+            position: relative;
+        }
+
+        .y2k-glossy-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.18);
+            box-shadow: 0 0 18px var(--hud-cyan);
+        }
+
+        .y2k-glossy-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* Bagian Tengah Kanan: Wireframe Globes + Badge A2 */
+        .cyber-optics-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 10px 0;
+        }
+
+        .wireframe-globe {
+            width: 68px;
+            height: 68px;
+            animation: spinSlow 18s linear infinite;
+            opacity: 0.85;
+        }
+
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .a2-badge {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #7ceeff 0%, #1565c0 55%, #062147 100%);
+            border: 2px solid #a6f2ff;
+            box-shadow: 0 0 20px rgba(56, 232, 255, 0.55), inset 0 0 12px rgba(255, 255, 255, 0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .a2-badge:hover {
+            transform: scale(1.06);
+        }
+
+        .a2-badge-inner {
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            padding: 3px 10px;
+            background: rgba(3, 21, 52, 0.65);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 13px;
+            color: #ffffff;
+            letter-spacing: 2px;
+        }
+
+        /* Brand Logo Utama: FUTURE TECH */
+        .brand-logo-block {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 4px;
+        }
+
+        .atom-emblem {
+            width: 48px;
+            height: 48px;
+            filter: drop-shadow(0 0 10px var(--hud-cyan));
+        }
+
+        .brand-text h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-shadow: 0 0 14px rgba(56, 232, 255, 0.85);
+            line-height: 1.05;
+        }
+
+        .brand-text p {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            letter-spacing: 2.8px;
+            color: var(--hud-cyan);
+            margin-top: 3px;
+        }
+
+        /* Dekorasi Kanji & Radar di Bawah Kanan */
+        .bottom-hud-telemetry {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(56, 232, 255, 0.25);
+            padding-top: 8px;
+            margin-top: 8px;
+        }
+
+        .kanji-watermark {
+            font-size: 18px;
+            letter-spacing: 10px;
+            color: rgba(56, 232, 255, 0.35);
+            font-weight: bold;
+        }
+
+        .equalizer-bars {
+            display: flex;
+            gap: 3px;
+            align-items: flex-end;
+            height: 18px;
+        }
+
+        .eq-bar {
+            width: 4px;
+            background: var(--hud-cyan);
+            box-shadow: 0 0 6px var(--hud-cyan);
+            animation: eqPulse 0.8s infinite ease-in-out alternate;
+        }
+
+        .eq-bar:nth-child(2) { animation-delay: 0.15s; height: 14px; }
+        .eq-bar:nth-child(3) { animation-delay: 0.3s; height: 8px; }
+        .eq-bar:nth-child(4) { animation-delay: 0.45s; height: 18px; }
+        .eq-bar:nth-child(5) { animation-delay: 0.2s; height: 11px; }
+        .eq-bar:nth-child(6) { animation-delay: 0.5s; height: 16px; }
+
+        @keyframes eqPulse {
+            0% { height: 4px; opacity: 0.5; }
+            100% { height: 18px; opacity: 1; }
+        }
+
+        /* =========================================
+           6. HALAMAN SUB-MENU DINAMIS (INNER HUD)
+        ========================================= */
+        .subpage-container {
+            padding: 24px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            min-height: 450px;
+            justify-content: space-between;
+        }
+
+        .subpage-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(56, 232, 255, 0.5);
+            padding-bottom: 10px;
+        }
+
+        .subpage-header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            color: #ffffff;
+            letter-spacing: 2.5px;
+            text-shadow: 0 0 10px var(--hud-cyan);
+        }
+
+        .subpage-badge {
+            background: rgba(56, 232, 255, 0.15);
+            border: 1px solid var(--hud-cyan);
+            color: var(--hud-cyan);
+            font-size: 10px;
+            padding: 3px 8px;
+            letter-spacing: 1.5px;
+        }
+
+        /* Grid Karya Portfolio / 3D / Digital Art */
+        .cyber-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+        }
+
+        .cyber-card {
+            background: linear-gradient(180deg, rgba(10, 44, 99, 0.78) 0%, rgba(3, 15, 38, 0.92) 100%);
+            border: 1px solid rgba(56, 232, 255, 0.45);
+            padding: 12px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .cyber-card:hover {
+            border-color: #ffffff;
+            box-shadow: 0 0 16px rgba(56, 232, 255, 0.45);
+            transform: translateY(-2px);
+        }
+
+        .cyber-card-thumb {
+            height: 110px;
+            background: #020b1c;
+            border: 1px solid rgba(56, 232, 255, 0.3);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cyber-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12.5px;
+            color: var(--hud-cyan);
+            margin-bottom: 4px;
+        }
+
+        .cyber-card p {
+            font-size: 11.5px;
+            color: #cbd5e1;
+            line-height: 1.4;
+        }
+
+        /* Biography Layout */
+        .bio-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .bio-box {
+            background: rgba(3, 19, 48, 0.75);
+            border: 1px solid rgba(56, 232, 255, 0.4);
+            padding: 16px;
+        }
+
+        .skill-meter {
+            margin-bottom: 10px;
+        }
+
+        .skill-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            margin-bottom: 4px;
+            color: #e2e8f0;
+        }
+
+        .skill-track {
+            height: 8px;
+            background: #020a18;
+            border: 1px solid rgba(56, 232, 255, 0.4);
+        }
+
+        .skill-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0d6efd, var(--hud-cyan));
+            box-shadow: 0 0 8px var(--hud-cyan);
+        }
+
+        /* Interactive Lab Canvas */
+        .lab-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        #y2kCanvas {
+            width: 100%;
+            height: 240px;
+            background: #010814;
+            border: 1px solid var(--hud-cyan);
+            box-shadow: inset 0 0 20px rgba(56, 232, 255, 0.25);
+            cursor: crosshair;
+        }
+
+        /* Sound Synthesizer Pad */
+        .synth-pad-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .synth-key {
+            padding: 22px 10px;
+            background: linear-gradient(180deg, #10499e 0%, #06214d 100%);
+            border: 1px solid var(--hud-cyan);
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.4);
+        }
+
+        .synth-key:active, .synth-key.playing {
+            background: var(--hud-cyan);
+            color: #020b1c;
+            box-shadow: 0 0 16px var(--hud-cyan);
+        }
+
+        /* Contact Terminal Form */
+        .cyber-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 560px;
+        }
+
+        .cyber-input {
+            background: rgba(2, 12, 31, 0.9);
+            border: 1px solid rgba(56, 232, 255, 0.55);
+            color: #ffffff;
+            font-family: 'Share Tech Mono', monospace;
+            padding: 9px 12px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .cyber-input:focus {
+            border-color: #ffffff;
+            box-shadow: 0 0 10px rgba(56, 232, 255, 0.5);
+        }
+
+        .cyber-submit-btn {
+            background: linear-gradient(180deg, #1b74e4 0%, #093575 100%);
+            border: 1px solid var(--hud-cyan);
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 10px 18px;
+            cursor: pointer;
+            align-self: flex-start;
+        }
+
+        .cyber-submit-btn:hover {
+            background: var(--hud-cyan);
+            color: #020b1c;
+        }
+
+        /* =========================================
+           7. BOTTOM SUB-NAVBAR & METALLIC PLATE
+        ========================================= */
+        .bottom-subnav {
+            background: linear-gradient(180deg, #98a2ad 0%, #6d7680 100%);
+            border: 1px solid #1d2126;
+            padding: 5px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .bottom-subnav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .subnav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .subnav-btn {
+            background: linear-gradient(180deg, #3c4249 0%, #171a1e 100%);
+            border-top: 1px solid #7d8792;
+            border-left: 1px solid #5c646d;
+            border-right: 1px solid #0b0d0f;
+            border-bottom: 1px solid #0b0d0f;
+            color: #e2e8f0;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 5px 14px;
+            border-radius: 3px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .subnav-btn:hover, .subnav-btn.active {
+            color: var(--hud-cyan);
+            border-top-color: var(--hud-cyan);
+            background: linear-gradient(180deg, #134a96 0%, #071e42 100%);
+        }
+
+        .footer-meta-bar {
+            background: linear-gradient(180deg, #68707a 0%, #4d545c 100%);
+            border: 1px solid #22262b;
+            border-top: none;
+            padding: 4px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 9px;
+            letter-spacing: 1.2px;
+            color: #e6edf5;
+        }
+
+        .audio-toggle-btn {
+            background: rgba(15, 23, 42, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 9px;
+            padding: 2px 8px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+
+        .audio-toggle-btn.on {
+            color: var(--hud-cyan);
+            border-color: var(--hud-cyan);
+            box-shadow: 0 0 8px rgba(56, 232, 255, 0.5);
+        }
+
+        /* Brushed Aluminum Bottom Bezel (Sesuai Referensi) */
+        .brushed-aluminum-plate {
+            height: 62px;
+            margin-top: 4px;
+            border-radius: 0 0 6px 6px;
+            border: 1px solid #353a40;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255, 255, 255, 0.08) 0px,
+                    rgba(255, 255, 255, 0.08) 1px,
+                    rgba(0, 0, 0, 0.06) 1px,
+                    rgba(0, 0, 0, 0.06) 2px
+                ),
+                linear-gradient(180deg, #aeb6bf 0%, #8b949e 55%, #757e87 100%);
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.55);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 18px;
+        }
+
+        .chassis-engraving {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 9px;
+            letter-spacing: 3px;
+            color: rgba(25, 30, 36, 0.65);
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        /* =========================================
+           8. MODAL PREVIEW PROYEK
+        ========================================= */
+        .cyber-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(1, 7, 18, 0.85);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .cyber-modal-backdrop.open {
+            display: flex;
+        }
+
+        .cyber-modal-box {
+            width: 100%;
+            max-width: 520px;
+            background: linear-gradient(180deg, #0b3475 0%, #03122b 100%);
+            border: 2px solid var(--hud-cyan);
+            box-shadow: 0 0 30px rgba(56, 232, 255, 0.5);
+            padding: 18px;
+            position: relative;
+        }
+
+        /* =========================================
+           9. MOBILE RESPONSIVENESS (< 768px)
+        ========================================= */
+        @media (max-width: 768px) {
+            body {
+                padding: 6px;
+            }
+
+            .y2k-chassis {
+                padding: 4px;
+                border-radius: 6px;
+            }
+
+            .hero-layout {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            .hero-left {
+                min-height: 270px;
+                padding: 16px;
+                align-items: flex-start;
+            }
+
+            .portrait-container {
+                left: 50%;
+                transform: translateX(-50%);
+                width: 210px;
+                height: 260px;
+            }
+
+            .hero-title-bar {
+                margin-left: -16px;
+                margin-bottom: 12px;
+                width: calc(100% + 32px);
+            }
+
+            .hero-title-bar h1 {
+                font-size: 11px;
+                letter-spacing: 1.4px;
+            }
+
+            .hero-right {
+                align-items: center;
+                text-align: center;
+                padding: 16px;
+                border-top: 1px solid rgba(56, 232, 255, 0.35);
+                background: rgba(2, 13, 34, 0.65);
+            }
+
+            .motto-header {
+                text-align: center;
+                font-size: 8.5px;
+            }
+
+            .brand-text h2 {
+                font-size: 21px;
+            }
+
+            .bio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .synth-pad-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .brushed-aluminum-plate {
+                height: 36px;
+            }
+
+            .footer-meta-bar {
+                flex-direction: column;
+                gap: 6px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CHASSIS MONITOR Y2K -->
+    <main class="y2k-chassis" id="y2kChassis">
+        
+        <!-- Window Control Bar -->
+        <div class="window-titlebar">
+            <div class="system-status-tag">
+                <span class="status-led"></span>
+                <span>SYS.INTERFACE // V3.0.26_Y2K</span>
+            </div>
+            <div class="window-controls">
+                <button class="win-btn" title="Minimize Effect" onclick="triggerSystemPulse()">_</button>
+                <button class="win-btn" title="Reset Home" onclick="navigateTo('HOME')">□</button>
+                <button class="win-btn" title="Reboot Screen" onclick="triggerRebootEffect()">X</button>
+            </div>
+        </div>
+
+        <!-- Top Navigation Bar (Persis Referensi Mockup) -->
+        <nav class="nav-bar-chrome" aria-label="Main Navigation">
+            <button class="nav-btn nav-arrow-btn active" data-route="HOME" onclick="navigateTo('HOME')">&gt;&gt;</button>
+            <button class="nav-btn" data-route="BIOGRAPHY" onclick="navigateTo('BIOGRAPHY')">BIOGRAPHY</button>
+            <button class="nav-btn" data-route="PORTFOLIO" onclick="navigateTo('PORTFOLIO')">PORTFOLIO</button>
+            <button class="nav-btn" data-route="3D_DESIGN" onclick="navigateTo('3D_DESIGN')">3D DESIGN</button>
+            <button class="nav-btn" data-route="DIGITAL_ART" onclick="navigateTo('DIGITAL_ART')">DIGITAL ART</button>
+            <button class="nav-btn" data-route="INTERACTIVE" onclick="navigateTo('INTERACTIVE')">INTERACTIVE</button>
+            <button class="nav-btn" data-route="EXPERIMENTS" onclick="navigateTo('EXPERIMENTS')">EXPERIMENTS</button>
+            <button class="nav-btn" data-route="SOUND" onclick="navigateTo('SOUND')">SOUND</button>
+            <button class="nav-btn" data-route="CONTACT" onclick="navigateTo('CONTACT')">CONTACT</button>
+        </nav>
+
+        <!-- Central Cybernetic Blue Viewport -->
+        <section class="viewport-wrapper">
+            <div class="crt-grid-overlay"></div>
+            <div class="crt-scanlines"></div>
+
+            <!-- SVG Garis Vektor HUD Latar Belakang -->
+            <svg class="hud-vector-bg" viewBox="0 0 1100 460" preserveAspectRatio="none">
+                <line x1="0" y1="95" x2="1100" y2="95" stroke="rgba(56,232,255,0.22)" stroke-width="1"/>
+                <line x1="0" y1="365" x2="1100" y2="365" stroke="rgba(56,232,255,0.22)" stroke-width="1"/>
+                <line x1="485" y1="0" x2="485" y2="460" stroke="rgba(56,232,255,0.18)" stroke-width="1"/>
+                <polyline points="40,140 180,140 230,190 485,190" fill="none" stroke="rgba(56,232,255,0.35)" stroke-width="1"/>
+                <polyline points="1060,340 880,340 840,300 620,300" fill="none" stroke="rgba(56,232,255,0.4)" stroke-width="1.2"/>
+                <circle cx="885" cy="340" r="34" fill="none" stroke="rgba(56,232,255,0.28)" stroke-width="1" stroke-dasharray="4 4"/>
+                <circle cx="885" cy="340" r="22" fill="none" stroke="rgba(56,232,255,0.45)" stroke-width="1.5"/>
+            </svg>
+
+            <!-- Konten Dinamis yang Berganti Saat Menu Diklik -->
+            <div class="viewport-stage" id="viewportStage">
+                <!-- Diisi otomatis oleh JavaScript -->
+            </div>
+        </section>
+
+        <!-- Bottom Sub-Navigation Bar -->
+        <div class="bottom-subnav">
+            <div class="subnav-links">
+                <button class="subnav-btn" data-route="NEWS" onclick="navigateTo('NEWS')">NEWS</button>
+                <button class="subnav-btn" data-route="PORTFOLIO" onclick="navigateTo('PORTFOLIO')">PROJECTS</button>
+                <button class="subnav-btn" data-route="AWARDS" onclick="navigateTo('AWARDS')">AWARDS</button>
+                <button class="subnav-btn" data-route="EXPERIMENTS" onclick="navigateTo('EXPERIMENTS')">LAB</button>
+                <button class="subnav-btn" data-route="CONTACT" onclick="navigateTo('CONTACT')">CONTACT US</button>
+            </div>
+            <div style="font-size: 9px; color: #dbeafe; letter-spacing: 1px; white-space: nowrap;">
+                NET.LINK // ACTIVE
+            </div>
+        </div>
+
+        <!-- Copyright & Audio Toggle Bar -->
+        <div class="footer-meta-bar">
+            <span>© 2000-2026 DIGITAL DESIGN // ALL RIGHTS RESERVED</span>
+            <button id="audioToggleBtn" class="audio-toggle-btn" onclick="toggleAudioSystem()">
+                AUDIO: OFF
+            </button>
+        </div>
+
+        <!-- Brushed Aluminum Bottom Plate -->
+        <div class="brushed-aluminum-plate">
+            <span class="chassis-engraving">CYBERNETIC WORKSTATION // MODEL Y2K-09</span>
+            <span class="chassis-engraving">FREQ 60HZ</span>
+        </div>
+
+    </main>
+
+    <!-- Modal Preview Karya -->
+    <div class="cyber-modal-backdrop" id="projectModal" onclick="closeModal(event)">
+        <div class="cyber-modal-box" onclick="event.stopPropagation()">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--hud-cyan); padding-bottom:8px; margin-bottom:12px;">
+                <h3 id="modalTitle" style="font-family:'Orbitron',sans-serif; color:#fff; font-size:15px;">PROJECT_ARCHIVE</h3>
+                <button class="win-btn" onclick="closeModal()">X</button>
+            </div>
+            <div id="modalBody" style="font-size:12.5px; line-height:1.6; color:#e2e8f0;"></div>
+        </div>
+    </div>
+
+    <script>
+        /* =========================================================
+           1. WEB AUDIO API (RETRO BEEP & Y2K AMBIENT SYNTH)
+        ========================================================= */
+        let audioCtx = null;
+        let isAudioOn = false;
+        let ambientOsc = null;
+        let ambientGain = null;
+
+        function initAudioContext() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContextClass();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        // Efek suara klik futuristik saat tombol ditekan
+        function playCyberBeep(freq = 880, duration = 0.06, type = 'sine') {
+            if (!isAudioOn) return;
+            initAudioContext();
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(freq * 1.4, audioCtx.currentTime + duration);
+
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+        }
+
+        function toggleAudioSystem() {
+            initAudioContext();
+            isAudioOn = !isAudioOn;
+            const btn = document.getElementById('audioToggleBtn');
+
+            if (isAudioOn) {
+                btn.textContent = 'AUDIO: ON';
+                btn.classList.add('on');
+                playCyberBeep(660, 0.12, 'triangle');
+
+                // Ambient drone Y2K lembut
+                ambientOsc = audioCtx.createOscillator();
+                ambientGain = audioCtx.createGain();
+                ambientOsc.type = 'sine';
+                ambientOsc.frequency.setValueAtTime(65.41, audioCtx.currentTime); // C2 deep hum
+                ambientGain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+
+                ambientOsc.connect(ambientGain);
+                ambientGain.connect(audioCtx.destination);
+                ambientOsc.start();
+            } else {
+                btn.textContent = 'AUDIO: OFF';
+                btn.classList.remove('on');
+                if (ambientOsc) {
+                    ambientOsc.stop();
+                    ambientOsc.disconnect();
+                    ambientOsc = null;
+                }
+            }
+        }
+
+        /* =========================================================
+           2. DATA KONTEN HALAMAN PORTFOLIO
+        ========================================================= */
+        const PORTFOLIO_PROJECTS = [
+            {
+                id: 'PRJ-01',
+                title: 'NEBULA OS INTERFACE',
+                category: 'INTERACTIVE UI / FLASH ERA',
+                year: '2001 / REMASTERED 2026',
+                desc: 'Eksplorasi antarmuka sistem operasi berbasis vektor dengan navigasi suara spasial dan animasi mikro cybernetic.',
+                specs: 'HTML5 Canvas, WebAudio, Vector HUD'
+            },
+            {
+                id: 'PRJ-02',
+                title: 'CHROME VORTEX 3D',
+                category: '3D MOTION & RENDERING',
+                year: '2025',
+                desc: 'Seri visualisasi objek logam cair dan geometri futuristik yang terinspirasi oleh estetika PlayStation 2 dan majalah desain milenium.',
+                specs: '3D Wireframe, Shader Chromatic, 60FPS'
+            },
+            {
+                id: 'PRJ-03',
+                title: 'TOKYO CYBERNETICS',
+                category: 'DIGITAL ART & TYPOGRAPHY',
+                year: '2026',
+                desc: 'Kampanye visual eksperimental yang memadukan kaligrafi kanji, koordinat satelit, dan palet warna biru elektrik.',
+                specs: 'Editorial Grid, Custom Bitmap Type'
+            },
+            {
+                id: 'PRJ-04',
+                title: 'AERO SYNTH ENGINE',
+                category: 'AUDIO VISUALIZER',
+                year: '2026',
+                desc: 'Synthesizer web interaktif yang mengubah gelombang frekuensi rendah menjadi partikel radar secara real-time.',
+                specs: 'Web Audio API, Vanilla JS'
+            }
+        ];
+
+        /* =========================================================
+           3. TEMPLATE RENDER HALAMAN (VIEWS)
+        ========================================================= */
+        const VIEWS = {
+            HOME: () => `
+                <div class="hero-layout">
+                    <!-- Kiri: Siluet Karakter + Kanji + Label -->
+                    <div class="hero-left">
+                        <div class="portrait-container">
+                            <div class="portrait-halo"></div>
+                            <!-- Siluet Figur Bergaya Y2K High-Contrast -->
+                            <svg class="portrait-svg" viewBox="0 0 260 380" fill="none">
+                                <defs>
+                                    <linearGradient id="jacketGrad" x1="0" y1="0" x2="1" y2="1">
+                                        <stop offset="0%" stop-color="#1e293b"/>
+                                        <stop offset="50%" stop-color="#090d16"/>
+                                        <stop offset="100%" stop-color="#1e3a5f"/>
+                                    </linearGradient>
+                                    <linearGradient id="shirtGrad" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#ffffff"/>
+                                        <stop offset="85%" stop-color="#cbd5e1"/>
+                                        <stop offset="100%" stop-color="#64748b"/>
+                                    </linearGradient>
+                                    <linearGradient id="faceGrad" x1="0" y1="0" x2="1" y2="1">
+                                        <stop offset="0%" stop-color="#e2e8f0"/>
+                                        <stop offset="60%" stop-color="#64748b"/>
+                                        <stop offset="100%" stop-color="#1e293b"/>
+                                    </linearGradient>
+                                </defs>
+                                <!-- Rambut & Kepala Stylized -->
+                                <path d="M98 48 C92 26, 138 20, 152 42 C158 55, 152 78, 145 92 L112 96 C100 84, 96 64, 98 48 Z" fill="#0f172a"/>
+                                <path d="M104 46 C116 38, 144 40, 146 66 C147 84, 136 98, 122 98 C108 98, 100 80, 104 46 Z" fill="url(#faceGrad)"/>
+                                <!-- Leher -->
+                                <path d="M114 94 L138 92 L144 122 L108 124 Z" fill="#94a3b8"/>
+                                <!-- Jaket Gelap Terbuka -->
+                                <path d="M44 155 C54 122, 86 112, 108 114 L92 380 L28 380 Z" fill="url(#jacketGrad)"/>
+                                <path d="M144 114 C172 114, 206 130, 218 168 L232 380 L166 380 Z" fill="url(#jacketGrad)"/>
+                                <!-- Kaos Putih Kontras Tinggi (Ikonik Mockup) -->
+                                <path d="M106 115 Q126 126 146 115 L170 380 L88 380 Z" fill="url(#shirtGrad)"/>
+                                <!-- Garis Scan Teknis Melintasi Siluet -->
+                                <line x1="20" y1="185" x2="240" y2="185" stroke="rgba(56,232,255,0.5)" stroke-width="1"/>
+                                <line x1="30" y1="265" x2="230" y2="265" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+                            </svg>
+                        </div>
+
+                        <div class="kanji-row">水 火 木 天 航 天 族</div>
+
+                        <div class="hero-title-bar">
+                            <h1>DIGITAL CREATIVE / PORTFOLIO OF ERIC</h1>
+                        </div>
+
+                        <div class="telemetry-coords">
+                            <div>LAT // 06°54'53"S &nbsp; LON // 107°36'35"E</div>
+                            <div>SYS.MEM: 64MB VRAM // RENDER_MODE: HARDWARE</div>
+                        </div>
+                    </div>
+
+                    <!-- Kanan: Motto, 3 Glossy Buttons, Globe, Badge A2, Logo FUTURE TECH -->
+                    <div class="hero-right">
+                        <div class="motto-header">SOLACE IN TECHNOLOGY, BELIEF IN THE FUTURE</div>
+
+                        <!-- 3 Tombol Ikon Glossy Bevelled -->
+                        <div class="glossy-module-row">
+                            <button class="y2k-glossy-btn" title="Global Network" onclick="navigateTo('PORTFOLIO')">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#e0f7ff" stroke-width="1.8">
+                                    <circle cx="12" cy="12" r="9"/>
+                                    <ellipse cx="12" cy="12" rx="4" ry="9"/>
+                                    <line x1="3" y1="12" x2="21" y2="12"/>
+                                </svg>
+                            </button>
+                            <button class="y2k-glossy-btn" title="3D Isometric Modules" onclick="navigateTo('3D_DESIGN')">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#e0f7ff" stroke-width="1.8">
+                                    <polygon points="12 2 21 7 21 17 12 22 3 17 3 7 12 2"/>
+                                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                                    <line x1="12" y1="22.08" x2="12" y2="12"/>
+                                </svg>
+                            </button>
+                            <button class="y2k-glossy-btn" title="Launch Interactive Lab" onclick="navigateTo('INTERACTIVE')">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="#e0f7ff">
+                                    <polygon points="6 4 20 12 6 20 6 4"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Wireframe Globes + Badge A2 -->
+                        <div class="cyber-optics-row">
+                            <svg class="wireframe-globe" viewBox="0 0 100 100" fill="none" stroke="rgba(56,232,255,0.75)" stroke-width="1.2">
+                                <circle cx="50" cy="50" r="42"/>
+                                <ellipse cx="50" cy="50" rx="22" ry="42"/>
+                                <ellipse cx="50" cy="50" rx="42" ry="18"/>
+                                <line x1="8" y1="50" x2="92" y2="50"/>
+                                <line x1="50" y1="8" x2="50" y2="92"/>
+                            </svg>
+
+                            <div class="a2-badge" onclick="navigateTo('BIOGRAPHY')" title="Inspect Profile">
+                                <div class="a2-badge-inner">A 2</div>
+                            </div>
+                        </div>
+
+                        <!-- Brand Logo Utama -->
+                        <div class="brand-logo-block">
+                            <svg class="atom-emblem" viewBox="0 0 64 64" fill="none" stroke="#38e8ff" stroke-width="2.5">
+                                <ellipse cx="32" cy="32" rx="26" ry="10" transform="rotate(30 32 32)"/>
+                                <ellipse cx="32" cy="32" rx="26" ry="10" transform="rotate(-30 32 32)"/>
+                                <ellipse cx="32" cy="32" rx="26" ry="10" transform="rotate(90 32 32)"/>
+                                <circle cx="32" cy="32" r="4" fill="#ffffff"/>
+                            </svg>
+                            <div class="brand-text">
+                                <h2>FUTURE TECH</h2>
+                                <p>WWW.Y2K-PORTFOLIO.COM</p>
+                            </div>
+                        </div>
+
+                        <!-- Bar Telemetri Bawah Kanan -->
+                        <div class="bottom-hud-telemetry">
+                            <span class="kanji-watermark">火 狼 木 天</span>
+                            <div class="equalizer-bars" title="Signal Telemetry">
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+
+            BIOGRAPHY: () => `
+                <div class="subpage-container">
+                    <div class="subpage-header">
+                        <h2>// PERSONNEL DOSSIER: ERIC</h2>
+                        <span class="subpage-badge">CLEARANCE: LEVEL 09</span>
+                    </div>
+                    <div class="bio-grid">
+                        <div class="bio-box">
+                            <p style="color:var(--hud-cyan); font-size:11px; margin-bottom:6px;">[ IDENTITY SUMMARY ]</p>
+                            <p style="font-size:12.5px; line-height:1.65; margin-bottom:12px;">
+                                Desainer Digital & Creative Technologist yang berfokus pada antarmuka eksperimental, grafis gerak futuristik, dan estetika web awal milenium (Y2K Cybernetics).
+                            </p>
+                            <p style="font-size:11.5px; color:#94a3b8;">
+                                BASE: BANDUNG // SECTOR-07<br>
+                                SPECIALTY: INTERACTIVE UI, 3D MOTION, SOUND DESIGN
+                            </p>
+                        </div>
+                        <div class="bio-box">
+                            <p style="color:var(--hud-cyan); font-size:11px; margin-bottom:10px;">[ CORE SYSTEM CAPABILITIES ]</p>
+                            <div class="skill-meter">
+                                <div class="skill-label"><span>INTERFACE ARCHITECTURE</span><span>96%</span></div>
+                                <div class="skill-track"><div class="skill-fill" style="width:96%"></div></div>
+                            </div>
+                            <div class="skill-meter">
+                                <div class="skill-label"><span>MOTION & 3D WIREFRAME</span><span>90%</span></div>
+                                <div class="skill-track"><div class="skill-fill" style="width:90%"></div></div>
+                            </div>
+                            <div class="skill-meter">
+                                <div class="skill-label"><span>CREATIVE CODING (HTML/JS)</span><span>94%</span></div>
+                                <div class="skill-track"><div class="skill-fill" style="width:94%"></div></div>
+                            </div>
+                            <div class="skill-meter" style="margin-bottom:0;">
+                                <div class="skill-label"><span>SYNTH & AUDIO TELEMETRY</span><span>85%</span></div>
+                                <div class="skill-track"><div class="skill-fill" style="width:85%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+
+            PORTFOLIO: () => `
+                <div class="subpage-container">
+                    <div class="subpage-header">
+                        <h2>// ARCHIVE: SELECTED WORKS</h2>
+                        <span class="subpage-badge">4 MODULES LOADED</span>
+                    </div>
+                    <div class="cyber-grid">
+                        ${PORTFOLIO_PROJECTS.map((item, idx) => `
+                            <div class="cyber-card" onclick="openProjectModal(${idx})">
+                                <div class="cyber-card-thumb">
+                                    <svg width="70" height="70" viewBox="0 0 100 100" fill="none" stroke="#38e8ff" stroke-width="1.5">
+                                        <polygon points="50,10 90,30 90,70 50,90 10,70 10,30"/>
+                                        <circle cx="50" cy="50" r="18"/>
+                                        <line x1="10" y1="30" x2="90" y2="70"/>
+                                    </svg>
+                                    <span style="position:absolute; top:6px; left:8px; font-size:9px; color:var(--hud-cyan);">${item.id}</span>
+                                </div>
+                                <h3>${item.title}</h3>
+                                <p style="font-size:10px; color:#7dd3fc; margin-bottom:4px;">${item.category}</p>
+                                <p>${item.desc}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `,
+
+            '3D_DESIGN': () => `
+                <div class="subpage-container">
+                    <div class="subpage-header">
+                        <h2>// 3D WIREFRAME & CHROME RENDER</h2>
+                        <span class="subpage-badge">POLYGON ENGINE</span>
+                    </div>
+                    <div class="cyber-grid">
+                        <div class="cyber-card" onclick="openProjectModal(1)">
+                            <div class="cyber-card-thumb">
+                                <svg class="wireframe-globe" width="76" height="76" viewBox="0 0 100 100" fill="none" stroke="#38e8ff" stroke-width="1.4">
+                                    <circle cx="50" cy="50" r="40"/>
+                                    <ellipse cx="50" cy="50" rx="20" ry="40"/>
+                                    <ellipse cx="50" cy="50" rx="40" ry="15"/>
+                                </svg>
+                            </div>
+                            <h3>ORBITAL CORE V.4</h3>
+                            <p>Struktur bola konsentris dengan pantulan krom metalik dan rotasi sumbu ganda.</p>
+                        </div>
+                        <div class="cyber-card" onclick="openProjectModal(0)">
+                            <div class="cyber-card-thumb">
+                                <svg width="76" height="76" viewBox="0 0 100 100" fill="none" stroke="#ffffff" stroke-width="1.4">
+                                    <rect x="22" y="22" width="42" height="42"/>
+                                    <rect x="36" y="36" width="42" height="42" stroke="#38e8ff"/>
+                                    <line x1="22" y1="22" x2="36" y2="36"/>
+                                    <line x1="64" y1="22" x2="78" y2="36"/>
+                                    <line x1="22" y1="64" x2="36" y2="78"/>
+                                    <line x1="64" y1="64" x2="78" y2="78"/>
+                                </svg>
+                            </div>
+                            <h3>HYPERCUBE TESSERACT</h3>
+                            <p>Simulasi geometri ruang 4-dimensi untuk latar belakang instalasi multimedia.</p>
+                        </div>
+                    </div>
+                </div>
+            `,
+
+            DIGITAL_ART: () => `
+                <div class="subpage-container">
+                    <div class="subpage-header">
+                        <h2>// DIGITAL ART & CYBER GRAPHICS</h2>
+                        <span class="subpage-badge">RESOLUTION: 300 DPI</span>
+                    </div>
+                    <div class="cyber-grid">
+                        <div class="cyber-card" onclick="openProjectModal(2)">
+                            <div class="cyber-card-thumb" style="background: linear-gradient(135deg, #06214d, #0d6efd);">
+                                <span style="font-family:'Orbitron'; font-size:22px; font-weight:900; letter-spacing:4px; color:#fff; text-shadow:0 0 10px #38e8ff;">水火木</span>
+                            </div>
+                            <h3>NEO-TOKYO POSTER SERIES</h3>
+                            <p>Eksplorasi tipografi kanji bercahaya dan tekstur monitor CRT era tahun 2000.</p>
+                        </div>
+                        <div class="cyber-card" onclick="openProjectModal(3)">
+                            <div class="cyber-card-thumb" style="background: radial-gradient(circle, #1d4ed8, #020b1c);">
+                                <span style="font-family:'Silkscreen'; font-size:14px; color:#38e8ff;">[ Y2K_AESTHETIC ]</span>
+                            </div>
+                            <h3>LIQUID METAL DREAMS</h3>
+                            <p>Koleksi sampul album musik elektronik bergaya futurisme optimis akhir 90-an.</p>
+                        </div>
+                    </div>
+                </div>
+            `,
+
+            INTERACTIVE: () => `
+                <div class="subpage-container">
+                    <div class="subpage-header">
+                        <h2>// INTERACTIVE MATRIX LAB</h2>
+                        <span class="subpage-badge">MOVE CURSOR / TOUCH CANVAS</span>
+                    </div>
+                    <div class="lab-wrapper">
+                        <canvas id="y2kCanvas"></canvas>
+                        <p style="font-size:11px; color:#93c5fd;">
+                            Gerakkan kursor atau sentuh area radar di atas untuk memancarkan gelombang partikel cybernetic.
+                        </p>
+                    </div>
+                </div>
+            `,
+
+            EXPERIMENTS: () => VIEWS.INTERACTIVE(),
+
+            SOUND: () => `
+                <div class="subpage-container">
+                    <div class="subpage-header">
+                        <h2>// Y2K AUDIO SYNTHESIZER</h2>
+                        <span class="subpage-badge">WEB AUDIO ENGINE</span>
+                    </div>
+                    <p style="font-size:12px; color:#cbd5e1;">
+                        Tekan tombol frekuensi di bawah untuk memicu nada synthesizer retro (pastikan mode audio aktif atau klik langsung pad).
+                    </p>
+                    <div class="synth-pad-grid">
+                        <button class="synth-key" onclick="triggerSynthNote(261.63, this)">C4 // SUB</button>
+                        <button class="synth-key" onclick="triggerSynthNote(329.63, this)">E4 // CYBER</button>
+                        <button class="synth-key" onclick="triggerSynthNote(392.00, this)">G4 // PULSE</button>
+                        <button class="synth-key" onclick="triggerSynthNote(493.88, this)">B4 // NEON</button>
+                        <button class="synth-key" onclick="triggerSynthNote(523.25, this)">C5 // CHROME</button>
+                        <button class="synth-key" onclick="triggerSynthNote(659.25, this)">E5 // LASER</button>
+                        <button class="synth-key" onclick="triggerSynthNote(783.99, this)">G5 // ORBIT</button>
+                        <button class="synth-key" onclick="triggerSynthNote(1046.50, this)">C6 // MATRIX</button>
+                    </div>
+                </div>
+            `,
+
+            CONTACT: () => `
+                <div class="subpage-container">
+                    <div class="subpage-header">
+                        <h2>// ESTABLISH TRANSMISSION</h2>
+                        <span class="subpage-badge">SECURE CHANNEL</span>
+                    </div>
+                    <form class="cyber-form" onsubmit="handleContactSubmit(event)">
+                        <input type="text" class="cyber-input" placeholder="CODENAME / YOUR NAME..." required>
+                        <input type="email" class="cyber-input" placeholder="RETURN FREQUENCY (EMAIL)..." required>
+                        <textarea class="cyber-input" rows="3" placeholder="TRANSMISSION MESSAGE..." required></textarea>
+                        <button type="submit" class="cyber-submit-btn">SEND TRANSMISSION &gt;&gt;</button>
+                        <div id="contactFeedback" style="font-size:11.5px; color:var(--hud-cyan);"></div>
+                    </form>
+                </div>
+            `,
+
+            NEWS: () => `
+                <div class="subpage-container">
+                    <div class="subpage-header">
+                        <h2>// SYSTEM LOGS & NEWS</h2>
+                        <span class="subpage-badge">FEED V3.0</span>
+                    </div>
+                    <div class="bio-box">
+                        <p style="color:var(--hud-cyan); font-size:11px;">[ 2026.11.18 ] — LAUNCH OF FUTURE TECH V3 INTERFACE</p>
+                        <p style="font-size:12px; margin-top:4px; margin-bottom:14px;">
+                            Peluncuran resmi antarmuka portofolio interaktif bergaya Y2K dengan dukungan layar responsif dan Web Audio API.
+                        </p>
+                        <p style="color:var(--hud-cyan); font-size:11px;">[ 2026.09.04 ] — EXHIBITION: RETRO-FUTURISM IN WEB DESIGN</p>
+                        <p style="font-size:12px; margin-top:4px;">
+                            Karya eksperimental terpilih dalam pameran seni digital dan eksplorasi antarmuka klasik awal milenium.
+                        </p>
+                    </div>
+                </div>
+            `,
+
+            AWARDS: () => `
+                <div class="subpage-container">
+                    <div class="subpage-header">
+                        <h2>// RECOGNITION & AWARDS</h2>
+                        <span class="subpage-badge">HALL OF FAME</span>
+                    </div>
+                    <div class="cyber-grid">
+                        <div class="cyber-card">
+                            <h3>FWA // SITE OF THE DAY</h3>
+                            <p>Penghargaan untuk inovasi tata letak antarmuka retro-futuristik dan integrasi suara.</p>
+                        </div>
+                        <div class="cyber-card">
+                            <h3>CYBER DESIGN ARCHIVE</h3>
+                            <p>Kategori Best Experimental Portfolio dengan performa ringan berbasis HTML/CSS/JS murni.</p>
+                        </div>
+                    </div>
+                </div>
+            `
+        };
+
+        /* =========================================================
+           4. LOGIKA NAVIGASI & EFEK INTERAKTIF
+        ========================================================= */
+        let labAnimationId = null;
+
+        function navigateTo(route) {
+            playCyberBeep(920, 0.05, 'sine');
+
+            // Update status tombol aktif di top & bottom navbar
+            document.querySelectorAll('.nav-btn, .subnav-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.route === route);
+            });
+
+            const stage = document.getElementById('viewportStage');
+            stage.classList.add('glitch-transition');
+
+            if (labAnimationId) {
+                cancelAnimationFrame(labAnimationId);
+                labAnimationId = null;
+            }
+
+            setTimeout(() => {
+                const renderFn = VIEWS[route] || VIEWS.HOME;
+                stage.innerHTML = renderFn();
+                stage.classList.remove('glitch-transition');
+
+                if (route === 'INTERACTIVE' || route === 'EXPERIMENTS') {
+                    initInteractiveCanvas();
+                }
+            }, 140);
+        }
+
+        // Efek tombol kontrol jendela pojok kanan atas
+        function triggerSystemPulse() {
+            playCyberBeep(520, 0.08, 'square');
+            const chassis = document.getElementById('y2kChassis');
+            chassis.style.transform = 'scale(0.985)';
+            setTimeout(() => chassis.style.transform = 'scale(1)', 160);
+        }
+
+        function triggerRebootEffect() {
+            playCyberBeep(300, 0.15, 'sawtooth');
+            navigateTo('HOME');
+        }
+
+        // Modal Preview Proyek
+        function openProjectModal(index) {
+            playCyberBeep(1100, 0.07, 'triangle');
+            const item = PORTFOLIO_PROJECTS[index];
+            document.getElementById('modalTitle').textContent = `${item.id} // ${item.title}`;
+            document.getElementById('modalBody').innerHTML = `
+                <p style="color:var(--hud-cyan); font-size:11px; margin-bottom:8px;">CATEGORY: ${item.category} (${item.year})</p>
+                <p style="margin-bottom:12px;">${item.desc}</p>
+                <div style="background:rgba(2,10,26,0.8); border:1px solid rgba(56,232,255,0.4); padding:8px; font-size:11px;">
+                    TECH SPECS: ${item.specs}
+                </div>
+            `;
+            document.getElementById('projectModal').classList.add('open');
+        }
+
+        function closeModal(event) {
+            if (!event || event.target.id === 'projectModal') {
+                playCyberBeep(600, 0.05, 'sine');
+                document.getElementById('projectModal').classList.remove('open');
+            }
+        }
+
+        // Synthesizer Pad di Menu SOUND
+        function triggerSynthNote(freq, el) {
+            if (!isAudioOn) {
+                toggleAudioSystem();
+            }
+            playCyberBeep(freq, 0.25, 'sawtooth');
+            el.classList.add('playing');
+            setTimeout(() => el.classList.remove('playing'), 220);
+        }
+
+        // Simulasi Pengiriman Form Kontak
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            playCyberBeep(1240, 0.15, 'triangle');
+            const feedback = document.getElementById('contactFeedback');
+            feedback.textContent = '>> TRANSMISSION RECEIVED. ERIC WILL RESPOND SHORTLY.';
+            e.target.reset();
+        }
+
+        // Interactive Radar Particle Canvas di Menu INTERACTIVE / LAB
+        function initInteractiveCanvas() {
+            const canvas = document.getElementById('y2kCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            function resizeCanvas() {
+                const rect = canvas.getBoundingClientRect();
+                canvas.width = rect.width;
+                canvas.height = rect.height;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            const particles = [];
+            let pointer = { x: canvas.width / 2, y: canvas.height / 2 };
+
+            function spawnParticles(x, y) {
+                for (let i = 0; i < 4; i++) {
+                    particles.push({
+                        x,
+                        y,
+                        vx: (Math.random() - 0.5) * 3.5,
+                        vy: (Math.random() - 0.5) * 3.5,
+                        life: 1
+                    });
+                }
+            }
+
+            canvas.addEventListener('mousemove', e => {
+                const rect = canvas.getBoundingClientRect();
+                pointer.x = e.clientX - rect.left;
+                pointer.y = e.clientY - rect.top;
+                spawnParticles(pointer.x, pointer.y);
+            });
+
+            canvas.addEventListener('touchmove', e => {
+                const rect = canvas.getBoundingClientRect();
+                const touch = e.touches[0];
+                pointer.x = touch.clientX - rect.left;
+                pointer.y = touch.clientY - rect.top;
+                spawnParticles(pointer.x, pointer.y);
+            }, { passive: true });
+
+            function renderLoop() {
+                ctx.fillStyle = 'rgba(1, 8, 20, 0.24)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Crosshair Radar
+                ctx.strokeStyle = 'rgba(56, 232, 255, 0.35)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(pointer.x, 0);
+                ctx.lineTo(pointer.x, canvas.height);
+                ctx.moveTo(0, pointer.y);
+                ctx.lineTo(canvas.width, pointer.y);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(pointer.x, pointer.y, 18, 0, Math.PI * 2);
+                ctx.stroke();
+
+                // Update & Gambar Partikel
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    const p = particles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.life -= 0.025;
+
+                    if (p.life <= 0) {
+                        particles.splice(i, 1);
+                        continue;
+                    }
+
+                    ctx.fillStyle = `rgba(56, 232, 255, ${p.life})`;
+                    ctx.fillRect(p.x, p.y, 3, 3);
+                }
+
+                labAnimationId = requestAnimationFrame(renderLoop);
+            }
+            renderLoop();
+        }
+
+        // Muat halaman utama saat pertama kali dibuka
+        window.addEventListener('DOMContentLoaded', () => {
+            navigateTo('HOME');
+        });
+    </script>
+</body>
+</html>
